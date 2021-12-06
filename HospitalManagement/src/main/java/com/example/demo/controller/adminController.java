@@ -2,14 +2,24 @@ package com.example.demo.controller;
 
 import java.util.Objects;
 
+import javax.naming.NameNotFoundException;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Admin;
 import com.example.demo.serviceImp.AdminService;
@@ -23,31 +33,62 @@ public class adminController {
 		super();
 		this.obj1 = obj1;
 	}
+	
+	@GetMapping("welcome")
+	public String welcome()
+	{
+		return "Start";
+	}
 	@GetMapping("/get")
 	public String listUserss(Model model)
 	{
 		model.addAttribute("Admin",obj1.getAllUsers());
 		return "Welcome";
 	}
+	
+	
 	@GetMapping("/gett")
-	public String listUsers(Model model)
+	public String login(Model model)
 	{
 		model.addAttribute("Admin",obj1.getAllUsers());
 			return "admin";
 	}
 	
+	
 	@GetMapping("/get/new")
-	public String createUser(Model model)
+	public String loginn(Model model)
 	{
 		Admin obj3 =new Admin();
 		model.addAttribute("obj3",obj3);
+		return "Welcome";
+	}	
+	@PostMapping("/getmy")
+	public String loginUser(@ModelAttribute("obj3") Admin admin,Model mode) throws NameNotFoundException
+	{
+			Admin adm=obj1.loginUser(admin.getName(),admin.getEmail());
+			 if(adm==null)
+			 {
+				 mode.addAttribute("obj3",obj1.getAllUsers());
+				return "admin";
+			 }
+			 else 
+			 {
+				 mode.addAttribute("obj3",obj1.getAllUsers());
+				 return "admin";
+			 }
+		}
+	@GetMapping("c/new")
+	public String createUser(Model model)
+	{
+		Admin obj4 =new Admin();
+		model.addAttribute("obj4",obj4);
 		return "create_user";
 	}
-	@PostMapping("/getmy")
-	public String saveUser(@ModelAttribute("obj3") Admin admin)
+	@PostMapping("Come")
+	public String saveUser(@ModelAttribute("obj4") Admin admin)
 	{
 		obj1.saveuser(admin);
-		return "redirect:/get";
+		return "redirect:/gett";
 	}
 	@GetMapping("get/update/{id}")
 	public String editUserForm(@PathVariable Long id,Model model)

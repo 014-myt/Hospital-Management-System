@@ -11,7 +11,6 @@ import com.example.demo.model.Patient;
 import java.util.List;
 	@Service
 	public class PatientService {
-
 	    @Autowired
 	    private PatientRepository patientRepository;
 

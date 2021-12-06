@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,25 +14,33 @@ import com.example.demo.serviceImp.DoctorService;
 
 @Controller
 public class DoctorController {
-
+@Autowired
 	DoctorService Docser;
 
 	public DoctorController(DoctorService docser) {
 		super();
 		Docser = docser;
 	}
-	@GetMapping("/doctorget")
-	public String listUserss(Model model)
-		{
-			model.addAttribute("Admin",Docser.getAllUsers());
-			return "Doc_List";
-      	}
-	@PostMapping("/doctorsave")
-	public String saveUser(@ModelAttribute("obj3") Doctor doctor)
+	@GetMapping("/get/doctor")
+	public String loginn(Model model)
 	{
-		Docser.saveuser(doctor);
-		return "redirect:/Doc_list";
+		Doctor obj3 =new Doctor();
+		model.addAttribute("obj5",obj3);
+		return "Welcomedocter";
+	}	
+	@GetMapping("doctersave")
+	public String saveUser(@ModelAttribute("obj5") Doctor doctor)
+	{
+	    System.out.print("hello doctor");
+	    Doctor doc=Docser.loginUser(doctor.getName(),doctor.getSpeaclist());
+		return "DocList";
      }
+	@GetMapping("/getdoc")
+	public String listUserss(Model model)
+	{
+		model.addAttribute("Admin",Docser.getAllUsers());
+		return "DocList";
+	}
 	@PostMapping("/Mydoctor/update/{id}")
 	public String updateStudent(@PathVariable long id,@ModelAttribute("admin") Doctor adm, Model model)
 	{

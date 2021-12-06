@@ -1,6 +1,17 @@
 package com.example.demo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Entity
 public class Patient {
+	public Patient() {
+		super();
+	}
+	@Autowired
+	@Id
 	long patientId;
 	String patientname;
 	String bloodgroup;
@@ -41,7 +52,7 @@ public class Patient {
 	public int getAge() {
 		return age;
 	}
-	public void setAge(long id) {
+	public void setAge(int id) {
 		this.age = id;
 	}
 	public String getGender() {

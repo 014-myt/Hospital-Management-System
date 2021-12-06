@@ -23,7 +23,7 @@
         <a class="nav-link"th:href="@{/get/new}">Register here</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{gett}">Doctors List</a>
+        <a class="nav-link" th:href="@{doctorget}">Doctors List</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href:"#">AboutUs</a>
@@ -37,20 +37,20 @@
 <div class=" col-lg-6 col-md-6 container justify-content-center card">
 <h1 class="text-center">Login here</h1>
 <div class="card=body">
-<form  method="post">
+<form   th:action="@{/getmy}" th:object="${obj3}" method="Post">
 <div class="form-group">
    <div class="form-group">
    <label> name</label>
-<input type="text" name="name" 
+<input type="text" name="name" th:field="*{name}"
   class="form-control">
    <div class="form-group">
 <label> email</label>
-<input type="text" name="email"  class="form-control">
+<input type="text" name="email"  th:field="*{email}" class="form-control">
 </div>
 </div>
 <br>
 <div class="box-footer">
-<button type="submit" class="btn btn-primary"> Submit </button>
+<button type="submit" class="btn btn-primary"> Submit</button>
 </div>
 </div>
 </form>

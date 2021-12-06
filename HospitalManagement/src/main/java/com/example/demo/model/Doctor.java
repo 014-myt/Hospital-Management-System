@@ -3,8 +3,11 @@ package com.example.demo.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
 public class Doctor {
+	@Autowired
 	public Doctor() {
 		super();
 	}

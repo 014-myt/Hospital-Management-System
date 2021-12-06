@@ -10,6 +10,9 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Availability {
+	public Availability() {
+		super();
+	}
 	@Id
       long AvailabilityId;
       Date Fromdate;

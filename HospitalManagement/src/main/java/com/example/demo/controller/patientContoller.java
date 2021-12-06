@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,23 +13,25 @@ import com.example.demo.serviceImp.AdminService;
 import com.example.demo.serviceImp.PatientService;
 
 public class patientContoller {
+	@Autowired
 	private PatientService obj1;
 
 	public patientContoller(PatientService obj1) {
 		super();
 		this.obj1 = obj1;
 	}
-	@GetMapping("/get")
+	
+	@GetMapping("getP")
 	public String listUserss(Model model)
 	{
-		model.addAttribute("Admin",obj1.getAllUsers());
-		return "patient";
+		model.addAttribute("min",obj1.listAll());
+		return "adm";
 	}
-	@GetMapping("/gett")
+	@GetMapping("/getnewpatient")
 	public String listUsers(Model model)
 	{
 		model.addAttribute("Admin",obj1.listAll());
-			return "patient";
+			return "admin";
 	}
 	
 	@GetMapping("/get/new")
@@ -47,7 +50,7 @@ public class patientContoller {
 	@GetMapping("get/update/{id}")
 	public String editUserForm(@PathVariable Long id,Model model)
 	{
-		model.addAttribute("admin",obj1.getUserId(id));	
+		model.addAttribute("admin",obj1.get(id));	
 	   return "edit_admin";	
 	}
 	@PostMapping("/Mypatient/{id}")
@@ -55,7 +58,7 @@ public class patientContoller {
 	{
 		System.out.println("hello");
 		Patient exist=obj1.save(id);
-		exist.setAge(id);
+		exist.setPatientId(id);
 		exist.setPatientname(adm.getPatientname());
 		exist.setBloodgroup(adm.getBloodgroup());
 		return "redirect:/get";

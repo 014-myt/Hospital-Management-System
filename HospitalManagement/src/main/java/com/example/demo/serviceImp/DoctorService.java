@@ -2,6 +2,7 @@ package com.example.demo.serviceImp;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Repository.DoctorRepository;
@@ -10,6 +11,7 @@ import com.example.demo.service.DoctorserInterface;
 
 @Service
 public class DoctorService implements DoctorserInterface {
+	@Autowired
   DoctorRepository Docrepo;
 
 public DoctorService(DoctorRepository docrepo) {
@@ -38,5 +40,10 @@ public Doctor getUserId(long id) {
 public void deletedocId(long id) {
 	// TODO Auto-generated method stub
 	  Docrepo.deleteById(id);
+}
+
+public Doctor loginUser(String name, String speaclist) {
+	// TODO Auto-generated method stub
+	return null;
 }
 }
